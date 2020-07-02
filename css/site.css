@@ -51,6 +51,16 @@ footer {
 	text-align: center;
 	font-size: 14px;
 }
+
+.button-delete{
+	background: #9C5549;
+	padding: 0.5em;
+	color: #fff;
+	border-radius: 4px;
+	text-decoration: none;
+	border: none;
+}
+
 .button.button-secondary {
 	background: #FFF;
 	border: 2px solid #e1e1e1;
@@ -182,6 +192,15 @@ ul li a {
 	font-size: 18px;
 }
 
+.error-message{
+	text-align:center;
+	margin:0 auto 2em;
+	display: block;
+	background: #678f89;
+	color: #fff;
+	padding:1em;
+	border-radius: 4px;
+}
 
 
 /* ==========================================================================

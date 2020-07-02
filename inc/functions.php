@@ -20,9 +20,19 @@ function get_entries($tag = null){
     }
 }
 
+function get_tags(){
+    include('connection.php');
+    try{
+        return $db->query('SELECT * FROM tags');
+    } catch (Exception $e){
+        echo "Error retrieving data: ". $e->getMessage() . "</br>";
+        return [];
+    }
+}
+
 function get_specific_entry($entry_id){
     include "connection.php";
-    $sql = "SELECT title, date, time_spent, learned, resources, id, tag FROM entries INNER JOIN tags ON entries.tag_id = tags.tag_id WHERE id = ?";
+    $sql = "SELECT title, date, time_spent, learned, resources, id, tag, tags.tag_id FROM entries INNER JOIN tags ON entries.tag_id = tags.tag_id WHERE id = ?";
     try{
         $results = $db->prepare($sql);
         $results->bindValue(1,$entry_id,PDO::PARAM_INT);
@@ -35,9 +45,9 @@ function get_specific_entry($entry_id){
 
 }
 
-function add_entry($title, $date, $time_spent, $learned, $resources){
+function add_entry($title, $date, $time_spent, $learned, $resources, $tag){
     include('connection.php');
-    $sql = 'INSERT INTO entries (title, date, time_spent, learned, resources) VALUES (?, ?, ?, ?, ?)';
+    $sql = 'INSERT INTO entries (title, date, time_spent, learned, resources, tag_id) VALUES (?, ?, ?, ?, ?, ?)';
     try{
         $results = $db->prepare($sql);
         $results->bindValue(1, $title, PDO::PARAM_STR);
@@ -45,6 +55,7 @@ function add_entry($title, $date, $time_spent, $learned, $resources){
         $results->bindValue(3, $time_spent, PDO::PARAM_STR);
         $results->bindValue(4, $learned, PDO::PARAM_STR);
         $results->bindValue(5, $resources, PDO::PARAM_STR);
+        $results->bindValue(6, $tag, PDO::PARAM_INT);
         $results->execute();
     } catch(Exception $e){
         echo "Error: " . $e->getMessage();
@@ -54,9 +65,9 @@ function add_entry($title, $date, $time_spent, $learned, $resources){
 }
 
 
-function edit_entry($id, $title, $date, $time_spent, $learned, $resources){
+function edit_entry($id, $title, $date, $time_spent, $learned, $resources, $tag){
     include('connection.php');
-    $sql = 'UPDATE entries SET title = ?, date = ?, time_spent = ?, learned = ?, resources = ? WHERE id = ?';
+    $sql = 'UPDATE entries SET title = ?, date = ?, time_spent = ?, learned = ?, resources = ?, tag_id = ? WHERE id = ?';
     try{
         $results = $db->prepare($sql);
         $results->bindValue(1, $title, PDO::PARAM_STR);
@@ -64,7 +75,8 @@ function edit_entry($id, $title, $date, $time_spent, $learned, $resources){
         $results->bindValue(3, $time_spent, PDO::PARAM_STR);
         $results->bindValue(4, $learned, PDO::PARAM_STR);
         $results->bindValue(5, $resources, PDO::PARAM_STR);
-        $results->bindValue(6, $id, PDO::PARAM_INT);
+        $results->bindValue(6, $tag, PDO::PARAM_INT);
+        $results->bindValue(7, $id, PDO::PARAM_INT);
         $results->execute();
     } catch(Exception $e){
         echo "Error: " . $e->getMessage();

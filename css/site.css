@@ -192,6 +192,11 @@ ul li a {
 	font-size: 18px;
 }
 
+.tag{
+	display:block;
+	margin-bottom: 3em;
+}
+
 .error-message{
 	text-align:center;
 	margin:0 auto 2em;

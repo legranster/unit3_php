@@ -34,7 +34,7 @@ if(isset($_POST['delete'])){
                     <li><?php echo nl2br($resources);?></li>
                 </ul>
             </div>
-            <div class="tag">
+            <div>
                 <p class='tag'>Tag: <a href='index.php?tag=<?php echo $tag?>'><?php echo $tag;?></a></p>
             </div>
             <div class="delete">

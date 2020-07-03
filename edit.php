@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             echo "<h3 class='error-message animate__animated animate__fadeOut animate__delay-2s'>$error_message</h3>\n" ;
         }
         ?>
-        <form action='edit.php' method='POST'>
+            <form action='edit.php?id=<?=$id?>' method='POST'>
             <label for="title"> Title</label>
             <input id="title" type="text" name="title" value="<?php echo $title;?>"><br>
             <label for="date">Date</label>
